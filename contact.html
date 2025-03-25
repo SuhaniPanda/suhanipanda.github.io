@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <title>Contact Me</title>
+  <link rel="stylesheet" href="pcss.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: black;
+    }
+    label {
+      color: black; 
+      font-size: x-large; font-weight: bold;
+    }
+    .contact-form {
+      width: 70%;
+      margin: auto;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    }
+    .form-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .form-group input, .form-group textarea {
+      width: 95%;
+      padding: 10px;
+      border: 2px solid #086b52;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    .form-group textarea {
+      height: 20px;
+    }
+    .FIcon {
+      position: absolute;
+      right: 10px;
+      top: 40px;
+      width: 20px;
+      height: 20px;
+      display: none;
+    }
+    .error {
+      border: 2px solid red;
+    }
+    .success {
+      border: 2px solid green;
+    }
+    .success-message, .error-message {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+    .success-message {
+      color: green;
+    }
+    .error-message {
+      color: red;
+    }
+    .submit-btn {
+      display: block;
+      width: 50%;
+      margin: 20px auto;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: rgb(64, 176, 224);
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #2dc4b6;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="topnav">
+  <a href="contact.html">Contact Me</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="Resume.html">Resume</a>
+  <a href="Abt.html">About</a>
+  <button id="themeToggle">
+    <i class="fas fa-moon"></i> <!-- Dark mode icon -->
+  </button>
+</div>
+
+<div class="container">
+  <!-- Sidebar (25%) -->
+  <aside class="sidebar">
+    <a href="index.html">
+        <img class="me" src="mypic.jpg" alt="Suhani Panda">
+    </a>
+    <h2>Suhani Panda</h2>
+    <p><img class="icon" src="vit.jpg"> VIT Chennai</p>
+    <p>Computer Science (AI & ML)</p>
+    <p>
+        <img class="icon" src="gmail.webp"> 
+        <a href="mailto:suhani.panda2023@vitstudent.ac.in">suhani.panda2023@vitstudent.ac.in</a>
+    </p>
+    <p><img class="icon" src="loc.jpg">Chennai, Tamil Nadu</p>
+    <p><img class="icon" src="lang.jpg">Languages: English, Hindi, Odia, Spanish</p>
+    <div class="social-icons">
+        <a href="https://www.linkedin.com/in/suhani-panda/">
+            <img class="icon" src="linkedin.jpg">
+        </a>
+        <a href="https://github.com/SuhaniPanda">
+            <img class="icon" src="git.png">
+        </a>
+    </div>
+</aside>
+
+
+  <!-- Main Content (75%) -->
+  <main class="content">
+    <h2>Feel Free to Reach Out</h2>
+    <form id="contactForm" class="contact-form" action="https://formsubmit.co/suhanipanda1@gmail.com" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <img class="FIcon" id="nameIcon">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+        <img class="FIcon" id="phoneIcon">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <img class="FIcon" id="emailIcon">
+      </div>
+      <div class="form-group">
+        <label for="msg">Message:</label>
+        <textarea id="msg" name="msg" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">SUBMIT</button>
+      <div id="successMessage" class="success-message">✅ SUCCESSFULLY SUBMITTED...<br>Will get back to you soon.</div>
+      <div id="errorMessage" class="error-message">❌ WRONG ENTRY</div>
+    </form>
+  </main>
+</div>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("name");
+    let phone = document.getElementById("phone");
+    let email = document.getElementById("email");
+    let msg = document.getElementById("msg");
+    let nameIcon = document.getElementById("nameIcon");
+    let phoneIcon = document.getElementById("phoneIcon");
+    let emailIcon = document.getElementById("emailIcon");
+    let successMessage = document.getElementById("successMessage");
+    let errorMessage = document.getElementById("errorMessage");
+    let isValid = true;
+
+    function validateField(input, pattern, FIcon) {
+      if (pattern.test(input.value.trim())) {
+        input.classList.remove("error");
+        input.classList.add("success");
+        FIcon.src = "tick.png";
+        FIcon.style.display = "inline";
+        return true;
+      } else {
+        input.classList.add("error");
+        input.classList.remove("success");
+        FIcon.src = "cross.png";
+        FIcon.style.display = "inline";
+        return false;
+      }
+    }
+
+    // Validate fields
+    isValid = validateField(name, /^[A-Za-z\s]+$/, nameIcon) && isValid;
+    isValid = validateField(phone, /^[0-9]{10}$/, phoneIcon) && isValid;
+    isValid = validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, emailIcon) && isValid;
+
+    if (isValid) {
+      // Prepare form data
+      const formData = new FormData(this);
+      
+      // Use FormSubmit.co to send the form data
+      fetch("https://formsubmit.co/ajax/suhanipanda1@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name.value,
+          phone: phone.value,
+          email: email.value,
+          message: msg.value
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        successMessage.style.display = "block";
+        errorMessage.style.display = "none";
+        this.reset();
+      })
+      .catch(error => {
+        errorMessage.style.display = "block";
+        errorMessage.textContent = "❌ Error submitting form. Please try again later.";
+      });
+    } else {
+      successMessage.style.display = "none";
+      errorMessage.style.display = "block";
+    }
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Load saved theme
+  if (localStorage.getItem("theme") === "light") {
+      body.classList.add("light-mode");
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+
+  themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      if (body.classList.contains('light-mode')) {
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          localStorage.setItem("theme", "light");
+      } else {
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          localStorage.setItem("theme", "dark");
+      }
+  });
+</script>
+</body>
+<footer class="resume-footer">
+  <p>© 2025 Suhani Panda | Designed with ♥</p>
+</footer>
+</html>
